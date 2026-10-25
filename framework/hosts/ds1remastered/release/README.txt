@@ -30,7 +30,7 @@ CONTROLS (controller)
   L3 + R3 (hold 1 s) or F8 / F6        switch between Mario and the knight's own controls
   Keyboard: WASD move, E jump, Space dodge, left mouse punch, right mouse kick, Ctrl crouch.
 
-  Wear the Wing Cap (Hollow Soldier Helm) and triple jump to fly.
+  Wear the Wing Cap (the Pyromancer's Tattered Cloth Hood) and triple jump to fly.
 
 SETTINGS (optional)
   Copy MarioSouls\settings-example.txt to MarioSouls\settings.txt and edit it while the game

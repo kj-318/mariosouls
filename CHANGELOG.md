@@ -4,6 +4,11 @@ Meaningful changes are recorded here by development version. The detailed, maint
 
 ## Unreleased
 
+### Remastered (v172-v173)
+
+- The Wing Cap is now the Pyromancer's Tattered Cloth Hood (230000-230010), which Mario already starts with. The earlier swap to the Hollow Soldier Helm was overwritten by the game; the Hollow Soldier Helm is an ordinary helmet again. `givewingcap=on` gives the hood.
+- Event animations must read the same for about 100 ms before the game takes the knight. This fixes erratic control after dying in the lower Catacombs pit.
+
 ### Documentation
 
 - Fork: rewrite the README and player guides (installation, playing, compatibility, troubleshooting, recovery, bug reports) for Dark Souls Remastered. Developer guides now describe the Remastered build and package; PTDE pages are marked as the original reference host.
@@ -23,7 +28,7 @@ Meaningful changes are recorded here by development version. The detailed, maint
 - Sloped walls with 0.01<|ny|<0.30 (Hellkite bridge underside, Capra arena) get vertical stand-ins, so Mario bonks and wall-kicks on them.
 - Air wall teleport-back fixed (no air shortfall snap next to a static wall); stair step-assist no longer interferes with BLJs.
 - Menus, item pickups, NPC talk and shops hand control back; bonfire sit releases when the knight stands up or walks away.
-- Hollow Soldier Helm is the Wing Cap: Mario wears the winged cap with SM64 flight and the cap-on animation. New characters start with it.
+- Hollow Soldier Helm is the Wing Cap (moved to the Tattered Cloth Hood in v173): Mario wears the winged cap with SM64 flight and the cap-on animation. New characters start with it.
 - Text: Sen's Fortress is "Whomp's Fortress", Hollow Soldier Helm is "Wing Cap", Pyromancy Flame is "Flower Power".
 
 ### Packaging

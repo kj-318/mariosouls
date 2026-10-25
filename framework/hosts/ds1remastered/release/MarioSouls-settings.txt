@@ -2,7 +2,7 @@
 # Lines starting with # are ignored; delete the # in front of a line to turn it on.
 # Changes apply while the game runs.
 
-# Wing Cap from the Hollow Soldier Helm (off: plain cap)
+# Wing Cap from the Tattered Cloth Hood (off: plain cap)
 #wingcap=off
 
 # Break pots with the dodge and bump small enemies

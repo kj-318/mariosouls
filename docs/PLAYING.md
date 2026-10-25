@@ -34,7 +34,7 @@ All of SM64's moves work: triple jump, long jump, backflip, side flip, wall kick
 
 ## Equipment and items
 
-- **Wing Cap** (renamed Hollow Soldier Helm): Mario wears the winged cap and plays the cap-on animation. Triple jump to fly with SM64's wing-cap physics. With other helmets, Mario wears his normal cap.
+- **Wing Cap** (renamed Tattered Cloth Hood, the Pyromancer's starting hood): Mario wears the winged cap and plays the cap-on animation. Triple jump to fly with SM64's wing-cap physics. With other helmets, Mario wears his normal cap.
 - **Flower Power** (renamed Pyromancy Flame): casts natively from the hand it is in.
 - **Estus:** Mario drinks with the native heal; the knight's flask is hidden, and the heal glow is kept.
 

@@ -8,7 +8,7 @@ Close the game, then delete `dinput8.dll` and the `MarioSouls` folder from the g
 
 ## Saves
 
-Characters made or played with the mod are ordinary saves. They keep items the mod's rows refer to, such as Mario's Gear (a Caestus) and the Wing Cap (a Hollow Soldier Helm). Without the mod these show their vanilla names. Back up saves before testing:
+Characters made or played with the mod are ordinary saves. They keep items the mod's rows refer to, such as Mario's Gear (a Caestus) and the Wing Cap (a Tattered Cloth Hood). Without the mod these show their vanilla names. Back up saves before testing:
 
 ```text
 %USERPROFILE%\Documents\NBGI\DARK SOULS REMASTERED\<id>\DRAKS0005.sl2

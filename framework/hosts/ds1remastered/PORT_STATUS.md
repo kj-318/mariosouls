@@ -113,7 +113,7 @@ meaning parked at the user's request.
 | 09 | Camera, depth, UI order | done at 1080p; other resolutions not tested in depth |
 | 10 | Mesh-only hiding, audio | done for meshes; a small player shadow artifact remains in sunlight |
 | 11 | Cutscene presentation | not started |
-| 12 | Mario class / creation / intent | partial: Mario replaces the player on any save; the Pyromancer class is renamed Mario and starts with Mario's Gear and the Wing Cap (CharaInitParam 3007) |
+| 12 | Mario class / creation / intent | partial: Mario replaces the player on any save; the Pyromancer class is renamed Mario and starts with Mario's Gear and its own hood, which is the Wing Cap |
 | 13 | Seamless areas vs actor replacement | done (actor-replacement resets) |
 | 14 | Contextual A, menus, estus, footing | done: menus, shops, pickups, talking, bonfires, ladders, estus |
 | 15 | Native actions, doors, death | done (deaths and respawns; recovery after many quick hits) |
@@ -128,7 +128,7 @@ meaning parked at the user's request.
 | 24 | Cannon, diagnostics, small behaviors | partial: diagnostics behind `diag=on` |
 
 DSR-only additions:
-- Wing Cap: the Hollow Soldier Helm (480000–480010) gives Mario the SM64 wing cap,
+- Wing Cap: the Tattered Cloth Hood (230000–230010), which the Pyromancer class already starts with, gives Mario the SM64 wing cap,
   with flight and the cap-on animation.
 - Renames: Sen's Fortress → "Whomp's Fortress".
 - Breakables can be hit by punches, kicks, pounds and the dodge.

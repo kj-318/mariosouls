@@ -33,7 +33,7 @@ Mario appears in place of your character on any save. For a new game, choose **M
 | Cast with Flower Power in that hand | LB / RB | — |
 | Switch between Mario and the knight's own controls | Hold L3 + R3 (1 s) | F6, or hold F8 |
 
-Wear the **Wing Cap** (the renamed Hollow Soldier Helm) and triple jump to fly. Punches, kicks and the dodge cost stamina. Pots, crates and barrels break when Mario hits or dodges into them. More in [the player guide](docs/PLAYING.md).
+Wear the **Wing Cap** (the renamed Tattered Cloth Hood, which Mario starts with) and triple jump to fly. Punches, kicks and the dodge cost stamina. Pots, crates and barrels break when Mario hits or dodges into them. More in [the player guide](docs/PLAYING.md).
 
 ## How it works
 

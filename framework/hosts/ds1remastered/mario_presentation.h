@@ -2659,20 +2659,20 @@ inline DWORD WINAPI poseThread(void *) {
                     prevFrame = state.rawAnimationFrame;
                 }
                 {
-                    // Wing Cap (v170n): the Hollow Soldier Helm (480000-480010) on the knight's head
+                    // Wing Cap (v170n; v173: the Tattered Cloth Hood, 230000-230010) on the knight's head
                     // is Mario's Wing Cap - SM64's own wings, flight (triple jump) and gravity.
                     // Put on with SM64's cap animation (standing or walking), worn for as long as
                     // the helm is: the cap timer's end is undone by setting the flag back.
                     namespace d = sm64direct;
                     const uint32_t head = static_cast<uint32_t>(mariosetup::g_headId);
-                    const bool want = g_wingCapOn && head >= 480000 && head <= 480010;
+                    const bool want = g_wingCapOn && head >= 230000 && head <= 230010;
                     static bool putOn = false;
                     const uint32_t fl = state.rawFlags;
                     if (want && d::interactCap && d::setState) {
                         if (!putOn) {
                             d::interactCap(id, d::MARIO_WING_CAP, 1, 0);
                             putOn = true;
-                            logWrite("mario: Wing Cap on (Hollow Soldier Helm %u)", head);
+                            logWrite("mario: Wing Cap on (Tattered Cloth Hood %u)", head);
                         } else if (!(fl & d::MARIO_WING_CAP) && act != d::ACT_PUTTING_ON_CAP) {
                             d::setState(id, (fl | d::MARIO_WING_CAP | d::MARIO_CAP_ON_HEAD) & ~d::MARIO_CAP_IN_HAND);
                         }

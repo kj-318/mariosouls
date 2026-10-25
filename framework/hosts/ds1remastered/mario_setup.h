@@ -516,14 +516,9 @@ inline void patchScanParams(uintptr_t start, size_t size, const uint8_t *p, int 
         const uint8_t *row = paramRow(blob, room, init ? 3007 : 1810260);
         if (!row) continue;
         if (init) {
-            // v170o: Mario starts wearing the Wing Cap (the Hollow Soldier Helm, 480000) instead
-            // of the Pyromancer's Tattered Cloth Hood (230000): equip_Helm +0x20.
-            int helm;
-            memcpy(&helm, row + 0x20, 4);
-            if (helm == 230000) {
-                *reinterpret_cast<volatile int *>(real(row + 0x20)) = 480000;
-                logWrite("mario setup: Mario's starting head -> Wing Cap (Hollow Soldier Helm 480000)");
-            }
+            // v173: the Pyromancer's own Tattered Cloth Hood (230000, equip_Helm +0x20) is the
+            // Wing Cap, so Mario starts with it unchanged.  (v170o swapped in the Hollow Soldier
+            // Helm, which the game then replaced with the hood.)
         }
         int weapon;
         memcpy(&weapon, row + (init ? 0x10 : 0x00), 4);
@@ -587,12 +582,12 @@ inline void textList(Override *list, int &n) {
     list[n++] = {132327, nullptr, kMarioDescription};  // only in an FMG whose 132027 is "Pyromancer"
     // Place name 1500 (v170n): the area banner and the bonfire warp list.
     list[n++] = {1500, L"Sen's Fortress", L"Whomp's Fortress", true};
-    // v170o: the Hollow Soldier Helm is the Wing Cap, the Pyromancy Flame is Flower Power
+    // v173: the Tattered Cloth Hood (230000) is the Wing Cap, the Pyromancy Flame is Flower Power
     // (names only, whole-string matches; every upgrade level has its own entry).
     for (int lv = 0; lv <= 10; ++lv) {
-        if (lv) { swprintf(g_capFrom[lv], 40, L"Hollow Soldier Helm +%d", lv); swprintf(g_capTo[lv], 40, L"Wing Cap +%d", lv); }
-        else { wcscpy(g_capFrom[0], L"Hollow Soldier Helm"); wcscpy(g_capTo[0], L"Wing Cap"); }
-        list[n++] = {480000 + lv, g_capFrom[lv], g_capTo[lv], true};
+        if (lv) { swprintf(g_capFrom[lv], 40, L"Tattered Cloth Hood +%d", lv); swprintf(g_capTo[lv], 40, L"Wing Cap +%d", lv); }
+        else { wcscpy(g_capFrom[0], L"Tattered Cloth Hood"); wcscpy(g_capTo[0], L"Wing Cap"); }
+        list[n++] = {230000 + lv, g_capFrom[lv], g_capTo[lv], true};
     }
     for (int lv = 0; lv <= 15; ++lv) {
         if (lv) { swprintf(g_flameFrom[lv], 40, L"Pyromancy Flame+%d", lv); swprintf(g_flameTo[lv], 40, L"Flower Power+%d", lv); }
@@ -741,7 +736,7 @@ inline void giveTick() {
     logWrite("mario setup: gave the loaded character a Caestus (Mario's Gear)");
 }
 
-// givewingcap=on (v170o): put one Wing Cap (Hollow Soldier Helm 480000, armour category
+// givewingcap=on (v170o): put one Wing Cap (Tattered Cloth Hood 230000 since v173, armour category
 // 0x10000000) in the loaded character's inventory, once per game session - for saves made
 // before Mario started with it.
 inline volatile LONG g_giveWingCap = 0, g_wingGiven = 0;
@@ -760,8 +755,8 @@ inline void giveWingCapTick() {
     if (!classBase || !worldobs::readable(classBase + 0x10, 8)) return;
     const uintptr_t gameData = *reinterpret_cast<const uintptr_t *>(classBase + 0x10);
     if (!gameData || !worldobs::readable(gameData + 0x280, 8)) return;
-    reinterpret_cast<ItemGetFn>(fn)(reinterpret_cast<void *>(gameData + 0x280), 0x10000000, 480000, 1, 1, 1, 0, 1);
-    logWrite("mario setup: gave the loaded character a Wing Cap (Hollow Soldier Helm)");
+    reinterpret_cast<ItemGetFn>(fn)(reinterpret_cast<void *>(gameData + 0x280), 0x10000000, 230000, 1, 1, 1, 0, 1);
+    logWrite("mario setup: gave the loaded character a Wing Cap (Tattered Cloth Hood)");
 }
 
 // ---- Test only (givehiddenbody=on): for each newly loaded character, learn
