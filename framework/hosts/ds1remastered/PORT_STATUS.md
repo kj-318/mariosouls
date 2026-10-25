@@ -189,6 +189,6 @@ MarioSouls and the PTDE host are by **Ted Cassirer**
 (<https://github.com/TedCassirer/mariosouls>). This Remastered port builds on his
 framework, SDK, SM64 adapter and PTDE reference behavior, and follows his
 porting guides (`framework/docs/HOST_PORTING.md`, `REMASTERED_HANDOFF.md`,
-`REMASTERED_PARITY.md`). The port was developed by Josh Fraser with Claude
+`REMASTERED_PARITY.md`). The port was developed by KJ-318 with Claude
 (Anthropic). It also uses DSR-Gadget offsets and community modding references
 listed in `docs/remastered/MODDING_RESOURCES.md`.

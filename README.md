@@ -54,7 +54,7 @@ Dark Souls stays in charge of health, stamina, inventory, enemy damage, quests a
 
 ## Credits
 
-The original MarioSouls mod, framework, SM64 adapter and PTDE reference implementation are by [Ted Cassirer](https://github.com/TedCassirer/mariosouls). The Remastered port is by Josh Fraser, developed with Claude (Anthropic).
+The original MarioSouls mod, framework, SM64 adapter and PTDE reference implementation are by [Ted Cassirer](https://github.com/TedCassirer/mariosouls). The Remastered port is by [KJ-318](https://github.com/kj-318), developed with Claude (Anthropic).
 
 Built with libsm64, the [SM64 decompilation](https://github.com/n64decomp/sm64), [MinHook](https://github.com/TsudaKageyu/minhook) and [Soulstruct](https://github.com/Grimrukh/soulstruct). Super Mario 64 is © Nintendo; Dark Souls is © FromSoftware / Bandai Namco. This is an unofficial fan mod.
 
