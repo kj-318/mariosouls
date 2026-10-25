@@ -1,10 +1,12 @@
 # MarioSouls
 
+> **Fork note — Dark Souls Remastered port.** This fork adds an experimental, playable Remastered host on branch `ds1remastered` (`framework/hosts/ds1remastered/`). Start with [the port status and handoff](framework/hosts/ds1remastered/PORT_STATUS.md). The original project, and all PTDE work, is by [Ted Cassirer](https://github.com/TedCassirer/mariosouls).
+
 MarioSouls is a mod for **Dark Souls: Prepare to Die Edition on Windows** that replaces the Pyromancer class with **Mario**. Play the game with Super Mario 64 movement, jumps and attacks, while keeping Dark Souls progression, equipment and world interactions.
 
 Equip Mario's Gloves for punches, kicks, dives and ground pounds.
 
-The mod has been tested in focused development sessions **with and without DSfix 2.4**. It is still experimental. Dark Souls Remastered is a future target and is **not supported yet**.
+The mod has been tested in focused development sessions **with and without DSfix 2.4**. It is still experimental. Dark Souls Remastered is supported only by the experimental port in this fork (see [PORT_STATUS](framework/hosts/ds1remastered/PORT_STATUS.md)); the PTDE installer does not install it.
 
 ## Installation
 

@@ -1,0 +1,27 @@
+# MarioSouls settings. Save as MarioSouls\settings.txt in the game folder to use them.
+# Lines starting with # are ignored; delete the # in front of a line to turn it on.
+# Changes apply while the game runs.
+
+# Wing Cap from the Hollow Soldier Helm (off: plain cap)
+#wingcap=off
+
+# Break pots with the dodge and bump small enemies
+#dodgehit=off
+#dodgepush=30
+
+# Ladder: Mario's distance toward the rungs and height (cm)
+#ladderfwd=25
+#ladderup=0
+
+# Ground pound and heavy kick reach (cm)
+#poundreach=50
+#kickreach=90
+
+# Death planes in pits and elevator shafts
+#deathplane=off
+
+# Hide the knight's Estus flask while Mario drinks
+#estushide=off
+
+# Give the loaded character one Wing Cap (for saves made before the mod). Remove afterwards.
+#givewingcap=on

@@ -8,6 +8,9 @@
 !/docs/
 /docs/*
 !/docs/*.md
+!/docs/remastered/
+/docs/remastered/*
+!/docs/remastered/*.md
 !/.github/
 /.github/*
 !/.github/ISSUE_TEMPLATE/
@@ -26,11 +29,14 @@
 !/framework/**/*.json
 !/framework/**/*.in
 !/framework/**/*.md
+!/framework/**/*.hlsl
+!/framework/hosts/ds1remastered/release/*.txt
 !/dependencies.lock.json
 !/tools/
 /tools/*
 !/tools/**/*.py
 !/tools/README.md
+!/tools/*_remastered.bat
 # Historical checkpoint manifests and archives remain local.
 !/patches/
 /patches/*
