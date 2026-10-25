@@ -1,24 +1,24 @@
-# Reporting bugs
+# Reporting bugs (Dark Souls Remastered)
 
-Open a report using the [GitHub bug template](https://github.com/TedCassirer/mariosouls/issues/new?template=bug_report.md). Reporting is manual; the mod does not upload your game state, open an in-game reporting bridge or record a session journal.
+Open a report on this fork using the [bug template](https://github.com/kj-318/mariosouls/issues/new?template=bug_report.md). Remastered problems belong here, not on the original PTDE project. Reporting is manual; the mod uploads nothing.
 
-## Include useful context
+## Include
 
-- MarioSouls commit/build and PTDE version/fingerprint if known.
-- Mario class/manual mode, equipped gloves/weapon and upgrade level when relevant.
-- Area, starting position and a short sequence of actions.
-- Expected behavior, actual behavior and whether it repeats.
-- Controller or keyboard/mouse; DSfix version, FPS and scene/UI resolution.
-- Other mods and whether F6/native mode has the same problem.
+- MarioSouls build: the commit, or the zip's date.
+- Dark Souls Remastered version (Steam), and the resolution and graphics settings if it's a visual problem.
+- Area, starting position and a short list of what you did.
+- What you expected, what happened, and whether it repeats.
+- Controller or keyboard/mouse.
+- Whether it also happens in knight mode (L3 + R3 / F6).
+- Other mods, especially anything in the game folder.
+- `MarioSouls\settings.txt` if you made one.
 
-For collision/attack problems, F8 shows the overlay, F9 selects a view and F10 changes occlusion. Explain the approach direction; screenshots alone may not show a camera, timing or moving-platform issue. A short video can help.
+For collision and attack problems, include the direction you approached from. A short video helps more than a screenshot.
 
-## Logs and privacy
+## Log and privacy
 
-`DATA/mariosouls.log` contains bounded startup/error information and is replaced on the next launch. Copy the relevant excerpt before restarting. It is not a continuous input/movement record.
+Attach the relevant part of `%LOCALAPPDATA%\MarioSoulsProbe\remastered_host.log`. It is replaced on the next launch, so copy it first. Remove personal paths or names before posting. Never attach ROMs, saves, extracted game files or memory dumps. For a security issue, follow [SECURITY.md](../SECURITY.md) instead of posting details.
 
-Review paths/player names before sharing logs or captures. Do not attach ROMs, saves, extracted game assets, binaries, memory dumps, credentials or complete private backups. For a sensitive security issue, follow [SECURITY.md](../SECURITY.md) instead of publishing the details.
+## Proposing a fix
 
-## For a proposed fix
-
-Link the issue/reproduction in the PR, update [Features and tweaks](FEATURES_AND_TWEAKS.md) and [CHANGELOG.md](../CHANGELOG.md), and describe what was actually compiled or checked in game. If developing in a fork, push the fix there and open/reuse a PR against the original repository. See [contributing](../CONTRIBUTING.md).
+Open a PR against this fork's `main`. Describe the problem, what changed, and what you actually checked in game. Update [PORT_STATUS](../framework/hosts/ds1remastered/PORT_STATUS.md) and [CHANGELOG.md](../CHANGELOG.md). See [contributing](../CONTRIBUTING.md).

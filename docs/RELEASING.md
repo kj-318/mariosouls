@@ -1,5 +1,7 @@
 # Release preparation
 
+> **Remastered fork:** the Remastered release is the zip made by `tools\package_remastered.bat` (see [development](DEVELOPMENT.md)): upload `work\release\MarioSouls-DSR.zip` to a draft GitHub prerelease on this fork, and never include a ROM or game files. The rest of this page describes the original PTDE installer, which this fork does not ship.
+
 GitHub Releases do not require Actions. Build locally, then upload the files to a draft prerelease. Publish only when the human explicitly requests a release; mark development versions as prereleases and describe remaining verification. Successful compilation does not establish a stable player release.
 
 ## Build the installer

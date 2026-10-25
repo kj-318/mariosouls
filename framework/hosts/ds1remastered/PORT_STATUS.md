@@ -41,9 +41,10 @@ maintainer.
 
 ## Building and packaging
 
-Requirements: Windows, Python 3, and the repo's pinned toolchain (the same
-dependencies as PTDE: libsm64 with `patches/libsm64`, and Zig/MSVC as in
-`docs/DEVELOPMENT.md`).
+Requirements: Windows, Python 3.12 and the pinned dependencies
+(`python tools/dependencies.py --setup --download-toolchain`, then
+`python tools/framework.py build --with-runtime --check-portability` for the x64
+adapter and runtime). Full steps are in `docs/DEVELOPMENT.md`.
 
 1. Run `tools\build_remastered.bat`. It compiles the test shaders, then runs
    `framework\hosts\ds1remastered\build.py`. The output is
@@ -112,7 +113,7 @@ meaning parked at the user's request.
 | 09 | Camera, depth, UI order | done at 1080p; other resolutions not tested in depth |
 | 10 | Mesh-only hiding, audio | done for meshes; a small player shadow artifact remains in sunlight |
 | 11 | Cutscene presentation | not started |
-| 12 | Mario class / creation / intent | partial: Mario always replaces the player; starting Wing Cap via CharaInitParam 3007 |
+| 12 | Mario class / creation / intent | partial: Mario replaces the player on any save; the Pyromancer class is renamed Mario and starts with Mario's Gear and the Wing Cap (CharaInitParam 3007) |
 | 13 | Seamless areas vs actor replacement | done (actor-replacement resets) |
 | 14 | Contextual A, menus, estus, footing | done: menus, shops, pickups, talking, bonfires, ladders, estus |
 | 15 | Native actions, doors, death | done (deaths and respawns; recovery after many quick hits) |

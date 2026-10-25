@@ -1,4 +1,6 @@
-# Features and tweaks
+# Features and tweaks (PTDE reference)
+
+> **Remastered fork:** this page is the original project's inventory of PTDE behavior, kept as the reference the Remastered port follows. For what works in Remastered, see [PORT_STATUS](../framework/hosts/ds1remastered/PORT_STATUS.md) and the [player guide](PLAYING.md).
 
 This is the maintained inventory of MarioSouls behavior and deliberate differences from native Dark Souls or stock SM64. It describes the current development source, not a promise that every entry has passed a full playthrough. [CHANGELOG.md](../CHANGELOG.md) records changes by version; this document records the resulting state.
 

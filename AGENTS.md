@@ -4,7 +4,7 @@
 
 MarioSouls replaces the Pyromancer class in Dark Souls: Prepare to Die Edition with Mario, using libsm64 movement and animation. It is implemented as a character framework so a future host edition or another guest character can reuse the integration work.
 
-PTDE on Windows/x86 is the only implemented host. Mario is the only implemented character. Focused gameplay checks have been performed with stock rendering and DSfix 2.4, but compilation and historical observations do not establish full-game compatibility. Read [compatibility](docs/COMPATIBILITY.md) before making support claims.
+This fork is the Dark Souls Remastered port: the Remastered host (`framework/hosts/ds1remastered/`, x64/DX11) is what it builds and ships; see `framework/hosts/ds1remastered/PORT_STATUS.md`. The original PTDE host remains as the reference implementation. In the original project, PTDE on Windows/x86 is the only implemented host. Mario is the only implemented character. Focused gameplay checks have been performed with stock rendering and DSfix 2.4, but compilation and historical observations do not establish full-game compatibility. Read [compatibility](docs/COMPATIBILITY.md) before making support claims.
 
 Dark Souls Remastered is an architectural target, not a functioning port. Preserve the renderer boundary, explicit host capabilities, fixed-step timing, portable types and x86/x64 compilation checks. There are no Remastered addresses, hooks or DX11 renderer to extend yet. Link, DK and other characters need their own adapter, engine integration and user-supplied assets; a mesh or scaffold is not a character implementation.
 

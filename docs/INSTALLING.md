@@ -1,99 +1,46 @@
-# Installation
+# Installation (Dark Souls Remastered)
 
-MarioSouls has a Windows installer candidate and a source-checkout workflow. Both use the same PTDE backend for executable validation, DSfix handling, backups and removal. Remastered is not supported.
+This fork's MarioSouls runs on **DARK SOULS: REMASTERED (Steam, Windows x64)**. Installing means copying files into the game folder: there is no installer, nothing is patched on disk and nothing needs administrator rights beyond writing to the game folder. (The original project's PTDE installer, `MarioSouls.ps1` and `Setup.exe`, is for Prepare to Die Edition and does not install this port.)
 
-## Windows installer candidate
+## What you need
 
-`MarioSouls-<version>-Setup.exe` is an experimental installer preview, not a fully verified stable release. Download it only from this project's [GitHub Releases](https://github.com/TedCassirer/mariosouls/releases), and read the verification limits in its release notes. Releases in a private repository require repository access.
+- Dark Souls Remastered, current Steam version.
+- Your own **Super Mario 64 (USA)** ROM, 8 MiB. `.z64` (big-endian), `.n64` and `.v64` byte orders are all accepted. The mod checks the internal name and region and writes a normalised copy to `%LOCALAPPDATA%\MarioSoulsProbe\sm64_us.z64`. It never downloads a ROM.
 
-1. Close Dark Souls. Open the installer on Windows 10/11 x64 with .NET Framework 4.8.
-2. Choose PTDE's `DATA` folder and your own US SM64 8 MiB big-endian `.z64` ROM.
-3. Click **Install / Update**. The first run downloads pinned Git, Zig and Python packages, builds the mod, and exports maps/equipment from your game. Internet, several GB of free space and several minutes are required; no preinstalled Python, Git or compiler is needed.
-4. Launch normally through Steam. The same executable's **Uninstall** button removes the managed setup without needing the ROM, compiler or network.
+## Install
 
-The installer does not download a ROM or Dark Souls, elevate itself, or change Windows policy. For a protected game folder, run it as administrator. It is unsigned; Windows may show an unknown-publisher warning. Compare the published SHA-256 before running it.
+1. Get `MarioSouls-DSR.zip`, or build it from source (see [development](DEVELOPMENT.md)).
+2. Find the game folder: in Steam, right-click **DARK SOULS: REMASTERED → Manage → Browse local files**. By default:
 
-Source, tools, exports and the last `setup.log` stay under `%LOCALAPPDATA%/MarioSouls/setup/<source-commit>/`. Keep this cache while installed: configuration points to its exported data. Keep the selected ROM at its chosen path. Uninstall retains this private cache and all saves.
+   ```text
+   C:\Program Files (x86)\Steam\steamapps\common\DARK SOULS REMASTERED
+   ```
 
-See [release preparation](RELEASING.md) for verification limits. The optional legacy Asylum arena-floor file remains on existing installations; it is not bundled with the candidate. The source-checkout workflow below requires Python 3.11+ and prepared dependencies/assets as described in [development](DEVELOPMENT.md).
+3. Copy the zip's contents there, so the folder looks like this:
 
-Unsupported Havok collision shapes, including some Ash Lake shapes, remain native-only and are recorded in the export manifest. Their Mario movement/support has not been verified in game. The candidate is not a claim of full-game traversal compatibility.
+   ```text
+   DarkSoulsRemastered.exe
+   dinput8.dll                 <- MarioSouls host
+   MarioSouls\mario64.dll      <- SM64 adapter
+   MarioSouls\sm64.dll         <- libsm64 runtime
+   MarioSouls\settings-example.txt
+   <your SM64 ROM>.z64
+   ```
 
-## Install, update or uninstall
+4. Start the game normally through Steam.
 
-Close Dark Souls normally. Open PowerShell in the project folder and run:
+On the first launch, a background thread builds SM64 collision for every map from your own game's `map\` and `event\` files. It writes the result to `%LOCALAPPDATA%\MarioSoulsProbe\collision`. This happens once. If you enter an area before its map is done, that map is built on demand. No game data is shipped with the mod.
 
-```powershell
-.\MarioSouls.ps1 install
-```
+If another mod already uses `dinput8.dll` in the game folder, the two cannot both be loaded this way. Remove or rename the other one first.
 
-Use the same command to update; stale source builds are rebuilt through the framework build tool. Existing gameplay tuning and asset paths are retained. Repeating an already-current install does not create another recovery snapshot.
+## Settings
 
-To remove the setup managed by this installer:
+The defaults are built in. To change them, copy `MarioSouls\settings-example.txt` to `MarioSouls\settings.txt` and remove the `#` in front of a line. The file is re-read while the game runs. The available options are listed in the example file. They include the Wing Cap, the dodge pot-breaking and bump, the ladder pose, the attack reach, the death planes and estus flask hiding.
 
-```powershell
-.\MarioSouls.ps1 uninstall
-```
+## Update
 
-These are the source-checkout commands. The PowerShell entry point and Windows front end share the PTDE host's `setup.py` implementation of game-file modifications.
+Close the game and copy the new `dinput8.dll` and `MarioSouls` folder over the old ones. Your `settings.txt` is kept. If an update changes the collision format, the cache is rebuilt automatically.
 
-## Game and ROM locations
+## Uninstall
 
-The default game directory is:
-
-```text
-C:\Program Files (x86)\Steam\steamapps\common\Dark Souls Prepare to Die Edition\DATA
-```
-
-That directory contains `DARKSOULS.exe`. `-GameDirectory` also accepts its parent directory containing `DATA`. The installer accepts only the supported executable fingerprint in [edition.json](../framework/hosts/ds1ptde/edition.json).
-
-Your US SM64 ROM can stay anywhere. It must be an 8 MiB big-endian `.z64` file; setup checks its size/header/region. It does not copy or download the ROM. Existing installs use `[Character.mario64] Asset` in `DATA/mariosouls.ini`, falling back to the older ROM setting when present.
-
-For a first setup or changed locations, supply paths in one command:
-
-```powershell
-.\MarioSouls.ps1 install -GameDirectory 'D:\Games\Dark Souls\DATA' -Rom 'D:\Private\Super Mario 64 (USA).z64' -CollisionDirectory 'D:\Private\collision' -EquipmentDirectory 'D:\Private\equipment'
-```
-
-`CollisionDirectory` must contain the exported map `.bin` files, and `EquipmentDirectory` the native `.scprop` exports. Setup does not generate them. Export manifests are checked when present; legacy collision directories without a manifest receive format checks only. Keep the optional existing `MarioSouls/collision/asylum-arena-floor.bin` used by the dynamic Asylum floor.
-
-The ROM/asset paths are saved in the game's configuration. Use `-GameDirectory` again for update/uninstall when the game is outside the default location, or set `MARIOSOULS_GAME_DIR` for the shell session. `MARIOSOULS_PYTHON` / `-Python 'C:\path\python.exe'` select a Python interpreter when necessary.
-
-## With or without DSfix
-
-Both stock rendering and DSfix 2.4 have had focused development checks. DSfix is installed separately and is not bundled.
-
-| Setup | Loader arrangement |
-| --- | --- |
-| Without DSfix | MarioSouls host becomes `DATA/dinput8.dll` |
-| Supported DSfix 2.4 | Keep DSfix's `dinput8.dll`; install `MarioSouls-host.dll` and set DSfix's wrapper to that file |
-
-The script recognizes DSfix by its verified hash, preserves shaders and all unrelated settings, and leaves the chosen FPS/resolution settings intact. Native anti-aliasing and motion blur should be disabled for DSfix. See [compatibility](COMPATIBILITY.md) for the checked configurations and limits.
-
-Unknown loaders, another wrapper chain, changed managed binaries, an unsupported executable or a running game stop setup before replacements. Resolve such conflicts rather than forcing an overwrite.
-
-## Preview and PowerShell permissions
-
-```powershell
-.\MarioSouls.ps1 install -WhatIf
-```
-
-Preview validates and lists planned file operations without building, backing up or changing game files. It reports a stale build instead of building it; a real install handles the rebuild.
-
-If Windows blocks this unsigned local script, inspect the source first. A process-local policy override can run the same command:
-
-```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File .\MarioSouls.ps1 install
-```
-
-The script does not change the machine's execution policy or elevate itself. Use a shell with write permission to the game directory when required.
-
-## Backups and uninstall behavior
-
-The setup record and recovery snapshots are under `DATA/SoulsCharacterFramework/setup/`. Keep that directory until uninstall is complete. Replacement errors trigger immediate rollback; snapshots support manual recovery after an interrupted process.
-
-Uninstall removes managed mod DLLs, restores the prior configuration unless you subsequently edited it, and restores DSfix's previous wrapper while retaining unrelated later DSfix edits. It keeps ROMs, generated assets, saves, logs and historical backups.
-
-A former installer setup can be adopted only when its DLL hashes match its recorded ownership. Uninstall then disables MarioSouls instead of restoring an older mod DLL. With no current setup record, uninstall does nothing; manually copied files require [manual recovery](RECOVERY.md).
-
-File-operation checks and successful compilation are not in-game verification. After updating, use a disposable character for the [manual checklist](TESTING.md).
+Close the game and delete `dinput8.dll` and the `MarioSouls` folder from the game folder. Optionally delete `%LOCALAPPDATA%\MarioSoulsProbe` (collision cache, ROM copy and log). Saves are not touched by install or uninstall. Back them up separately if you care about them; see [recovery](RECOVERY.md).

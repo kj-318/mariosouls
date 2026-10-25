@@ -1,21 +1,16 @@
 # Contributing
 
-MarioSouls is a PTDE character mod built on a reusable host/core/adapter framework. Mario is implemented; Remastered and other guest characters are future work. Start with [development](docs/DEVELOPMENT.md), [architecture](framework/README.md) and [AGENTS.md](AGENTS.md).
+This fork is the **Dark Souls Remastered** port of MarioSouls, built on Ted Cassirer's reusable host/core/adapter framework. The Remastered host lives in `framework/hosts/ds1remastered/`; its current state is in [PORT_STATUS](framework/hosts/ds1remastered/PORT_STATUS.md). The original PTDE host (`framework/hosts/ds1ptde/`) stays in the tree as the reference implementation and is not built or shipped by this fork. Start with [development](docs/DEVELOPMENT.md), [architecture](framework/README.md) and [AGENTS.md](AGENTS.md).
 
 Read the detailed [architecture rules](framework/docs/ARCHITECTURE.md) before changing framework code or contracts. They distinguish intended boundaries from current PTDE debt. These rules apply equally to human contributors and AI-generated changes; compilation alone does not establish that they were followed.
 
 ## Make a focused change
 
-Keep Dark Souls integration in the edition host, neutral policies in core/SDK and guest-engine behavior in the character adapter. Prefer an improvement at the correct framework boundary over a Mario-specific branch in host code. Preserve native health, stamina, inventory and rewards, as well as the existing DSfix integration.
+Keep Dark Souls integration in the edition host, neutral policies in core/SDK and guest-engine behavior in the character adapter. Prefer an improvement at the correct framework boundary over a Mario-specific branch in host code. Preserve native health, stamina, inventory and rewards.
 
 Explain the owning layer/authority and any changed dependency, data lifetime, identity, capability/failure path, timing/render behavior or ABI in your PR. Hosts must not include adapter internals; core/SDK must not acquire native/graphics dependencies; drawing must not advance gameplay. New editions use their own verified implementation/build/install boundaries. Update the architecture/debt record when a boundary actually changes rather than describing the new design as already verified.
 
-Build with:
-
-```powershell
-python tools/framework.py doctor
-python tools/framework.py build --check-portability
-```
+Build the Remastered host with `tools\build_remastered.bat` and package it with `tools\package_remastered.bat` (see [development](docs/DEVELOPMENT.md)). Warnings are errors.
 
 CI compiles; there are no automated gameplay suites. Use the [manual checklist](docs/TESTING.md) when game verification is appropriate, and state which cases remain untested. Never use the owner's level-65 character. Agent-driven controls need a current handoff.
 
@@ -29,9 +24,7 @@ Update player instructions for visible/control/installation changes, and SDK/por
 
 ## Work through your fork
 
-The original project is [TedCassirer/mariosouls](https://github.com/TedCassirer/mariosouls). Confirm the actual fork/upstream remotes and base branch before pushing.
-
-If working in a fork, push fixes to a focused branch in that fork and open a PR to the original project. Reuse an existing PR for the same work. Do not deliver a fork fix only as a local commit or push directly to upstream by mistake.
+This Remastered port is [kj-318/mariosouls](https://github.com/kj-318/mariosouls); the original PTDE project is [TedCassirer/mariosouls](https://github.com/TedCassirer/mariosouls). Remastered changes go to this fork: push a focused branch and open a PR against its `main`. Changes to shared framework, SDK or adapter code that would also help PTDE can be offered upstream as a separate PR. Confirm remotes and base branch before pushing.
 
 A PR should describe the concrete problem and resulting behavior, link a reproduction or issue where available, list compilation and manual observations, and identify unverified cases. Include the documentation updates. See the [PR template](.github/PULL_REQUEST_TEMPLATE.md).
 

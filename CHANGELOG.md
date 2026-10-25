@@ -6,6 +6,8 @@ Meaningful changes are recorded here by development version. The detailed, maint
 
 ### Documentation
 
+- Fork: rewrite the README and player guides (installation, playing, compatibility, troubleshooting, recovery, bug reports) for Dark Souls Remastered. Developer guides now describe the Remastered build and package; PTDE pages are marked as the original reference host.
+
 - Add a source-pinned PTDE behavior checklist for a Remastered port, covering 24 areas with source files/symbols, resulting behavior and tuning values. Separate reusable runtime/core code, edition-specific integration, known candidates and removed experiments; leave implementation order and verification strategy to the port author. Link it from the feature inventory and port handoff. No gameplay or installation is changed.
 
 ## 0.9.0-dev.12 - Remastered: playable Mario, shippable package

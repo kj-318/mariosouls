@@ -1,42 +1,39 @@
-# Verification
+# Verification (Dark Souls Remastered)
 
-## What automated checks establish
+## What the build checks
 
-```powershell
-python tools/framework.py build --check-portability
-```
+`tools\build_remastered.bat` compiles and links the Remastered host with warnings as errors. `python tools/framework.py build --check-portability` compiles the shared SDK/core and the x64 adapter and runtime. Neither runs the game. There are no automated gameplay tests; everything below is manual.
 
-This command compiles/links the PTDE host, Mario adapter and runtime for x86; compiles shared headers and C/C++ SDK declarations for x86/x64; and builds Mario/runtime for x64. Static assertions cover pointer sizes, structure sizes/offsets and calling conventions. No game, adapter or check program is executed.
+## Manual checks
 
-CI prepares pinned dependencies, runs this build and keeps build logs for seven days. There are no automated behavioral, ROM, rendering, Python, formatting or documentation test suites. Production executable, pointer, hook and asset checks remain active in the mod.
-
-## Manual game checks
-
-Use disposable characters and separate save backups. Never test on the owner's level-65 character. Agent-driven game input needs a current handoff. The project has no automated movement bridge, cheat menu, save editor, scenario runner or special game launcher.
+Use a disposable character, play offline and back up saves first. Scope each check to what changed. This is a checklist, not a statement that every row passes.
 
 | Area | Check |
 | --- | --- |
-| Creation | Mario class name/model; trait submenus; tutorial glove/Flame progression |
-| Load / reload | Saved Mario class restores the model; unrelated classes do not inherit stale intent |
-| Toggle | F6 / both sticks restore native behavior and return to Mario predictably |
-| Movement | Run/jump, slopes, stairs, narrow openings, ledges and unsupported descent |
-| Dynamic support | Ride a lift both ways, jump off/on, remove an event floor and cross a coordinate rebase |
-| Overlay | Hidden at startup; F8, F9 and F10 behave without changing gameplay |
-| Interactions | Contextual A, NPC, door, bonfire, ladder and Estus; include slopes and open menus; Y must not trigger world interaction |
-| Combat | Glove +0/+upgrades, each attack, stamina exhaustion, weapon families, blocks, parries and criticals |
-| Fire Flower controls | Left-hand LB/L1/right mouse cast versus right-hand B/RB/left mouse; native charges; RT/Tab must not cast; shield LB guard/RT parry; LT/L2 crouch/ground pound; release/repress after casting, item/focus changes and menus; left Flame with empty right hand/gloves/sword, flat ground/stairs; 150-ms native footing preparation or one-second cancellation with no queued input; compare `[Projectiles] Enabled=0`; F6 restores native bindings |
-| Incoming damage | Melee/projectile hits, armor/statuses, healing, heavy/airborne recovery, lethal damage and grabs |
-| Environment | Reduced landings versus lethal pits; lava with/without ring; enemy-fire priority/cooldown |
-| Death / streaming | One-shot death, respawn, and area crossing while moving followed by successful attacks |
-| Rendering / audio | Stock/DSfix, scene/UI resolutions, 30/60 FPS, UI above Mario, reset/focus and native enemy/boss audio |
-| Cutscenes / cannon | Player transform/camera/fallback; unlock, aim in multiple headings, launch, land and cancel |
+| Clean install | Zip contents and a ROM in a fresh game folder; first-launch `install: built collision` lines in the log; no ROM message box |
+| New character | Class shows as Mario; starts with Mario's Gear and the Wing Cap |
+| Toggle | L3 + R3 (1 s), F6 and F8 switch to the knight and back cleanly, including during a bonfire sit |
+| Movement | Run, jumps, wall kicks, BLJs, slopes, stairs, narrow doors, sloped walls (Hellkite bridge, Capra arena) |
+| Falls | Soft ordinary landings; pits and elevator shafts kill; Firelink arrival doesn't kill |
+| Ladders | Mario on the rungs; B climbs faster; standing still holds |
+| Interactions | Doors, levers, bonfires, NPCs, shops, pickups; control returns after each menu |
+| Estus | No knight flask or spill; the heal glow shows; empty flask too |
+| Combat | Punch, kick, pound, dive; stamina empties and stays at 0 until regen; no spending mid-move |
+| Dodge | Bump on small enemies with no HP damage; breaks pots |
+| Breakables | Pots, crates and barrels break from each attack |
+| Wing Cap | Wings drawn without a square around them; cap-on animation; triple-jump flight |
+| Text | Whomp's Fortress, Wing Cap, Flower Power, Mario's Gear names |
+| Death | Death and respawn, including after many quick hits; full control afterwards |
+| Rendering | Mario depth-correct; knight hidden including shadows; resolution change |
 
-This is a checklist, not a statement that every case already passes. Scope each check to the changed behavior rather than claiming broad compatibility from a small sample.
+## Recording evidence
 
-After renderer/capability/session refactoring, repeat the relevant rows in stock PTDE and DSfix: character and held-prop textures/lighting, impact flashes, cannon/reticle/prompt, all F8 layers/depth modes, native UI ordering, resolution change and device reset. Include creation-preview trait menus, cinematic camera/root handling, loading/movement, interaction/Estus, combat, death/respawn and a moving area transition. The current source extraction also separates native render/debug observation from CPU assembly and groups native restoration/guest state; explicitly verify F6 restoration and device reset do not cross those lifetimes. Compilation does not establish visual or fallback parity; no such live check was performed for this architectural change. No Remastered game check is possible from the PTDE build.
+Record:
+- the commit or build;
+- the settings file;
+- the area and steps;
+- what you saw;
+- the matching log lines;
+- the cases left untested.
 
-## Record useful evidence
-
-Record the commit/build, game fingerprint, DSfix/FPS/resolution settings, input device, disposable character, area, steps, observed native HP/stamina/animation behavior and remaining gaps. A screenshot of an animation is not proof of damage/protection; a successful API call is not proof of audible sound or physical rumble.
-
-Keep private captures and owned data outside Git. Summarize evidence in the PR and update verification limits in [Features and tweaks](FEATURES_AND_TWEAKS.md). Historical checks and compilation should be labeled separately; [compatibility](COMPATIBILITY.md) describes the current evidence scope.
+A screenshot of an animation doesn't prove damage happened; check the HP or stamina bars. Keep captures, saves and game data out of Git.

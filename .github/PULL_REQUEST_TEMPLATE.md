@@ -23,7 +23,7 @@ List compilation actually run and its result. Record manual game checks separate
 
 ## Compatibility and delivery
 
-Mention SDK/layout, migration, native hook, asset, installation or DSfix implications. Keep Remastered/other-character claims consistent with what is implemented.
+Mention SDK/layout, native hook, offset, collision or packaging implications for the Remastered host. Keep claims consistent with what was checked in game.
 
 For a fork contribution, push the fix branch to the fork and target the original repository's appropriate base branch. Reuse the relevant existing PR rather than duplicating it.
 
