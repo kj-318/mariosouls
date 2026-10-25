@@ -48,7 +48,10 @@ struct Observation {
     bool valid = false, prompt = false, menu = false;
     int anim = -1;        // event animation (id % 100000) currently shown, or -1
     int trackAnim = -1;   // the tracks' event animation that most recently changed
+    int src = -1;         // v172: where anim came from: 0 full-body (+0x16C), 1+n track n
+    int raw = -1;         // v172: the raw id read there
 };
+inline int g_trackSrc = -1, g_trackRaw = -1;  // v172: set by observe() for the track pick
 
 inline Observation observe() {
     Observation o;
@@ -127,7 +130,7 @@ inline Observation observe() {
         const DWORD now = GetTickCount();
         if (full != prevFull) { prevFull = full; fullChanged = now; }
         const int a = full % 100000;
-        if (full >= 0 && a >= 7000 && a < 9000 && now - fullChanged < 2000) o.anim = a;
+        if (full >= 0 && a >= 7000 && a < 9000 && now - fullChanged < 2000) { o.anim = a; o.src = 0; o.raw = full; }
     }
     // Tracks: an event animation counts while it keeps changing or for 2 s
     // after it last changed (stale values stay behind in idle tracks).
@@ -148,11 +151,38 @@ inline Observation observe() {
             if (id >= 0 && a >= 7000 && a < 9000 && init && now - changed[i] < 2000 && changed[i] >= newest) {
                 newest = changed[i];
                 o.trackAnim = a;
+                g_trackSrc = 1 + i;
+                g_trackRaw = id;
             }
         }
         init = true;
     }
-    if (o.anim < 0) o.anim = o.trackAnim;
+    if (o.anim < 0 && o.trackAnim >= 0) { o.anim = o.trackAnim; o.src = g_trackSrc; o.raw = g_trackRaw; }
+    // v172: an event animation must read the same for 3 polls (~100 ms) in a row.  After a
+    // death in the lower Catacombs (fall into the pit, respawn in m13_00) the reads gave a
+    // different 7000-8999 id every poll; each one took the knight from Mario for a moment
+    // (about 50 times a minute) and Mario lost control.  Real event animations (doors,
+    // ladders, levers, drinks, rests) last 400 ms or more, so the delay costs nothing.
+    {
+        static int candAnim = -1, candCount = 0, flickers = 0, lastSrc = -1, lastRaw = -1;
+        static DWORD flickerLog = 0;
+        if (o.anim == candAnim) {
+            if (candCount < 1000) ++candCount;
+        } else {
+            if (candAnim >= 0 && candCount < 3) { ++flickers; lastSrc = o.src >= 0 ? o.src : lastSrc; }
+            candAnim = o.anim;
+            candCount = 1;
+            if (o.anim >= 0) { lastSrc = o.src; lastRaw = o.raw; }
+        }
+        const DWORD now = GetTickCount();
+        if (flickers && now - flickerLog > 5000) {
+            flickerLog = now;
+            logWrite("native: %d unsteady animation reads ignored (last from %s %d, raw %d)", flickers,
+                     lastSrc == 0 ? "full-body" : "track", lastSrc > 0 ? lastSrc - 1 : 0, lastRaw);
+            flickers = 0;
+        }
+        if (o.anim >= 0 && candCount < 3) o.anim = -1;
+    }
     return o;
 }
 

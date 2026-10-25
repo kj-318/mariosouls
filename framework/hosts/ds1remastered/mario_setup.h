@@ -545,7 +545,7 @@ inline wchar_t g_gearNames[16][32];
 inline wchar_t g_capFrom[11][40], g_capTo[11][40], g_flameFrom[16][40], g_flameTo[16][40];
 inline const wchar_t kMarioClass[] = L"Mario";
 inline const wchar_t kMarioDescription[] =
-    L"Hero from another world.\nStarts with Mario's Gear for punches, kicks\nand ground pounds.";
+    L"Hero from another world.\nStarts with Mario's Gear for punches and kicks,\nand the Wing Cap for flight.";
 
 // Our strings must sit within 4 GB above the FMG (u32 offsets).
 inline wchar_t *nearCopy(uintptr_t fmg, const wchar_t *s) {
